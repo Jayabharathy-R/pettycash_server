@@ -19,7 +19,10 @@ const PORT=process.env.port||3002;
 //    next();
 //  });
 
-//router 
+//router
+app.use('/',(req,res,next)=>{
+   next();
+}) 
 app.use('/pettycash/users',userRouter);
    
 

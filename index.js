@@ -11,7 +11,7 @@ dotenv.config();
 
 mongo();  
 
-const PORT=process.env.port||3002;
+const PORT=process.env.PORT||3002;
 
 // app.use(function(req, res, next) {
 //    res.header('Access-Control-Allow-Origin', '*');
@@ -20,8 +20,8 @@ const PORT=process.env.port||3002;
 //  });
 
 //router
-app.use('/',(req,res,next)=>{
-   next();
+app.get('/',(req,res,next)=>{
+   res.json({msg:"hello"});
 }) 
 app.use('/pettycash/users',userRouter);
    

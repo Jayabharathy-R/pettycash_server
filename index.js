@@ -1,8 +1,12 @@
 const express=require("express");
 const dotenv=require("dotenv");
+const cors=require("cors");
 const mongo=require('./db');
 const { errorHandler, notFound } = require("./middleware/errorMiddleware");
 const userRouter = require("./router/userRouter");
+const expenseRouter = require("./router/expenseRouter");
+const cashInRouter = require("./router/cashInRouter");
+
 const app=express();
 
 app.use(express.json());
@@ -18,12 +22,18 @@ const PORT=process.env.PORT||3002;
 //    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 //    next();
 //  });
-
+app.use(cors());
 //router
 app.get('/',(req,res,next)=>{
-   res.json({msg:"hello"});
+   next();
 }) 
-app.use('/pettycash/users',userRouter);
+
+app.use('/pettycashManager/users',userRouter);
+
+app.use('/pettycashManager/expense',expenseRouter);
+
+app.use('/pettycashManager/cashIn',cashInRouter);
+
    
 
 

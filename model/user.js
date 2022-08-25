@@ -3,19 +3,19 @@ const bcrypt=require('bcryptjs');
 
 const userSchema=mongoose.Schema({
     firstname:{
-        required: true,
+        required: [true,"Firstname is required"],
         type: String
     },
     lastname:{
-        required: true,
+        required:  [true,"Lastname is required"],
         type: String
     },
     email:{
-        required: true,
+        required:  [true,"Email is required"],
         type: String
     },
     password:{
-        required: true,
+        required:  [true,"Password is required"],
         type: String
     },
     isAdmin:{
@@ -33,6 +33,13 @@ userSchema.pre('save',async function(next){
     this.password=await bcrypt.hash(this.password,salt);
     next();
 })
+//verify password
+
+userSchema.methods.isPasswordMatch=async function(enteredPassword){
+
+    return await bcrypt.compare(enteredPassword,this.password);
+}
+
 const User=mongoose.model('User', userSchema);
 
 module.exports=User;

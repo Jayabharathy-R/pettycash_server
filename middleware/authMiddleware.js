@@ -10,7 +10,6 @@ module.exports.authMiddleware = expressAsyncHandler(async (req, res,next) => {
         try {
             if (token) {
                 const decodedUser = jwt.verify(token, process.env.JWT_KEY);
-                console.log(decodedUser)
                 const user = await User.findById(decodedUser?.id);
                 req.user = user;
                 next();

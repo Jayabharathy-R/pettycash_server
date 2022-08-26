@@ -32,11 +32,12 @@ module.exports.addExpense = expressAsyncHandler(async (req, res) => {
   });
 
   module.exports.fetchUserExpense = expressAsyncHandler(async (req, res) => {
-    const {user}=req?.user;
-    console.log(user)
+    // const id=req?.user?._id;
+    console.log(req.user);
+    
     try {
   
-      const expense = await Expense.find(user);
+      const expense = await Expense.find({user:req.user});
       res.status(200).json(expense);
     }
     catch (err) {
